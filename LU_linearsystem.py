@@ -1,15 +1,11 @@
 import numpy as np
-import sys
 
 ''' A.X = B
     LU.X = B
     U.X = L^(-1)B
     X = U^(-1).[L^(-1)B]'''
     
-n = int(input('Digite a dimensão da matriz: '))
-
-'''np.zero Retorna uma matriz com zeros. Como queremos a matriz 
-   aumentada, ficamos com: (nome)=np.zeros(Dimensao)'''
+n = int(input('Type the dimension of the matrix: '))
 
 a = np.zeros([n,n])
 b = np.zeros([n,1])
@@ -18,22 +14,21 @@ U = np.zeros([n,n])
 L = np.zeros([n,n])
 X = np.zeros(n)
 
-sys.stdout = open("output_LU.txt", "w")
+print('Type the elements of the matrix: ')
 
-print('Digite os elementos da matriz: ')
-matrizA=[]
+matrixA=[]
 for i in range(n):
-    linha=[]
+    line=[]
     for j in range(n):
         a[i][j] = float(input( 'a['+str(i+1)+']['+ str(j+1)+']='))
         aij=a[i][j]
         U[i,j]=a[i,j]
-        linha.append(aij)
-    matrizA.append(linha) 
+        line.append(aij)
+    matrixA.append(line) 
 
-print('\n Matriz A: ')
+print('\n Matrix A: ')
 print('')
-print(np.matrix(matrizA))  
+print(np.matrix(matrixA))  
 
 # MATRIZ LU ---------------------------------------------------------
 
@@ -48,13 +43,13 @@ for k in range(n):
                 a[l,c]=a[l,c]-(m*a[k,c])
                 U[l,c]=a[l,c]               
                 
-print('\n Matriz L: ')
+print('\n Matrix L: ')
 print('\n',L)
-print('\n Matriz U: ')
+print('\n Matrix U: ')
 print(U)
 a=np.dot(L,U)
 print('')
-print('--- Verificando se a decomposição está certa ---')
+print('--- Checking if the decomposition is correct... ---')
 print('')
 print(a)
     
@@ -62,26 +57,25 @@ print(a)
 
 print('')
 print('Digite os elementos da matriz B: ')
-
-matrizB=[]
+matrixB=[]
 for i in range(n):
-    linhab=[]
+    lineb=[]
     for j in range(1):
         b[i][j] = float(input( 'a['+str(i+1)+']['+ str(j+1)+']='))
         bij=b[i][j]
-        linhab.append(bij)
-    matrizB.append(linhab)   
+        lineb.append(bij)
+    matrixB.append(lineb)   
 print('')
-print('Matriz B:')
+print('Matrix B:')
 print('')
-print(np.matrix(matrizB)) 
+print(np.matrix(matrixB)) 
 
 # Encontrando matrix X que é solução ------------------------------- 
 
 invL = np.linalg.inv(L)
 invU = np.linalg.inv(U)
-Y = np.dot(invL,matrizB)
+Y = np.dot(invL,matrixB)
 X = np.dot(invU,Y)
-print('\n Matriz solução!!! :D ')
+print('\n Final Matrix!!! :D ')
 print('')
 print(X)
